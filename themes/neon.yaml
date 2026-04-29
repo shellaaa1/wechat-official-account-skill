@@ -1,0 +1,27 @@
+name: 霓虹热点风
+base:
+  font_family: "'PingFang SC', 'Microsoft YaHei', sans-serif"
+  font_size: "16px"
+  color: "#e5e7eb"
+  line_height: "1.8"
+h1:
+  font_size: "26px"
+  color: "#111827"
+  font_weight: "800"
+  margin: "26px 0 18px"
+h2:
+  font_size: "21px"
+  color: "#7c3aed"
+  border_left: "4px solid #7c3aed"
+  padding_left: "12px"
+p:
+  margin: "0 0 16px"
+blockquote:
+  border_left: "4px solid #06b6d4"
+  padding: "10px 14px"
+  color: "#374151"
+  background: "#ecfeff"
+img:
+  max_width: "100%"
+  margin: "18px 0"
+  border_radius: "10px"

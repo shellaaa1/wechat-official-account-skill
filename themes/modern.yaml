@@ -1,0 +1,27 @@
+name: 现代风格
+base:
+  font_family: "'PingFang SC', 'Microsoft YaHei', sans-serif"
+  font_size: "16px"
+  color: "#2c3e50"
+  line_height: "1.8"
+h1:
+  font_size: "26px"
+  color: "#111827"
+  font_weight: "700"
+  margin: "26px 0 18px"
+h2:
+  font_size: "22px"
+  color: "#1abc9c"
+  border_left: "4px solid #1abc9c"
+  padding_left: "12px"
+p:
+  margin: "0 0 16px"
+blockquote:
+  border_left: "4px solid #1abc9c"
+  padding: "8px 12px"
+  color: "#4b5563"
+  background: "#f0fdfa"
+img:
+  max_width: "100%"
+  margin: "20px 0"
+  border_radius: "8px"

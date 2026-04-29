@@ -1,0 +1,21 @@
+name: 默认风格
+base:
+  font_family: "'PingFang SC', 'Microsoft YaHei', sans-serif"
+  font_size: "16px"
+  color: "#333333"
+  line_height: "1.8"
+h1:
+  font_size: "24px"
+  font_weight: "700"
+  margin: "24px 0 16px"
+h2:
+  font_size: "21px"
+  color: "#576b95"
+  border_left: "4px solid #576b95"
+  padding_left: "10px"
+p:
+  margin: "0 0 16px"
+img:
+  max_width: "100%"
+  height: "auto"
+  margin: "16px 0"

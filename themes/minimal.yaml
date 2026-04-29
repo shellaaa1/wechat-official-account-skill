@@ -1,0 +1,23 @@
+name: 极简风格
+base:
+  font_family: "'PingFang SC', 'Microsoft YaHei', sans-serif"
+  font_size: "16px"
+  color: "#222222"
+  line_height: "1.9"
+h1:
+  font_size: "24px"
+  font_weight: "700"
+  margin: "24px 0 18px"
+h2:
+  font_size: "20px"
+  font_weight: "700"
+  margin: "22px 0 12px"
+p:
+  margin: "0 0 18px"
+blockquote:
+  border_left: "3px solid #dddddd"
+  padding: "6px 12px"
+  color: "#666666"
+img:
+  max_width: "100%"
+  margin: "18px 0"

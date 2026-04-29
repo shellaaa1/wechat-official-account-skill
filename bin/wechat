@@ -1,0 +1,299 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+
+import click
+
+ROOT_DIR = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT_DIR))
+
+from src import draft, image_generation, material, menus_users_stats, template_engine  # noqa: E402
+from src.html_beautifier import markdown_to_wechat_html  # noqa: E402
+
+
+def print_json(data: object) -> None:
+    click.echo(json.dumps(data, ensure_ascii=False, indent=2))
+
+
+def parse_var(items: tuple[str, ...]) -> dict[str, str]:
+    result: dict[str, str] = {}
+    for item in items:
+        if "=" not in item:
+            raise click.BadParameter(f"变量必须使用 name=value 格式：{item}")
+        key, value = item.split("=", 1)
+        result[key.strip()] = value
+    return result
+
+
+@click.group(context_settings={"help_option_names": ["-h", "--help"]})
+def cli() -> None:
+    """微信公众号运营助手 CLI。"""
+
+
+@cli.group()
+def template() -> None:
+    """模板管理。"""
+
+
+@template.command("list")
+def template_list() -> None:
+    print_json(template_engine.list_templates())
+
+
+@template.command("show")
+@click.argument("name")
+def template_show(name: str) -> None:
+    print_json(template_engine.show_template(name))
+
+
+@template.command("render")
+@click.argument("name")
+@click.option("--var", "vars_", multiple=True, help="模板变量，格式：name=value，可多次传入。")
+@click.option("--output", "output", type=click.Path(dir_okay=False, path_type=Path), help="输出 Markdown 文件。")
+def template_render(name: str, vars_: tuple[str, ...], output: Path | None) -> None:
+    rendered = template_engine.render_template(name, parse_var(vars_))
+    if output:
+        output.expanduser().resolve().write_text(rendered, encoding="utf-8")
+    else:
+        click.echo(rendered)
+
+
+@cli.command()
+@click.option("--file", "file_", type=click.Path(exists=True, dir_okay=False, path_type=Path), help="输入 Markdown 文件。")
+@click.option("--theme", help="主题名称。")
+@click.option("--no-footer", is_flag=True, help="不添加页脚签名。")
+def convert(file_: Path | None, theme: str | None, no_footer: bool) -> None:
+    """将 Markdown 转换为公众号 HTML。"""
+    markdown = file_.read_text(encoding="utf-8") if file_ else sys.stdin.read()
+    click.echo(markdown_to_wechat_html(markdown, theme_name=theme, footer=not no_footer))
+
+
+@cli.group()
+def upload() -> None:
+    """素材上传。"""
+
+
+@upload.command("image")
+@click.option("--file", "file_", required=True, type=click.Path(exists=True, dir_okay=False), help="图片文件路径。")
+def upload_image(file_: str) -> None:
+    print_json(material.upload_image(file_))
+
+
+@cli.group()
+def image() -> None:
+    """AI 图片生成。"""
+
+
+@image.command("generate")
+@click.option("--prompt", required=True, help="图片生成提示词。")
+@click.option("--output-dir", type=click.Path(file_okay=False, path_type=Path), help="图片保存目录，默认 generated_images。")
+@click.option("--filename", help="输出文件名。")
+@click.option("--model", help="覆盖 IMAGE_MODEL。")
+@click.option("--size", help="覆盖 IMAGE_SIZE，如 1024x1024。")
+@click.option("--n", "count", default=1, show_default=True, type=int, help="生成图片数量。")
+@click.option("--response-format", help="覆盖 IMAGE_RESPONSE_FORMAT，如 url 或 b64_json。")
+def image_generate(
+    prompt: str,
+    output_dir: Path | None,
+    filename: str | None,
+    model: str | None,
+    size: str | None,
+    count: int,
+    response_format: str | None,
+) -> None:
+    paths = image_generation.generate_images(
+        prompt=prompt,
+        output_dir=output_dir,
+        filename=filename,
+        model=model,
+        size=size,
+        n=count,
+        response_format=response_format,
+    )
+    print_json({"files": [str(path) for path in paths]})
+
+
+@image.command("cover")
+@click.option("--prompt", required=True, help="封面图生成提示词。")
+@click.option("--output-dir", type=click.Path(file_okay=False, path_type=Path), help="图片保存目录，默认 generated_images。")
+@click.option("--filename", default="cover.png", show_default=True, help="输出文件名。")
+@click.option("--model", help="覆盖 IMAGE_MODEL。")
+@click.option("--size", help="覆盖 IMAGE_SIZE，如 1024x1024。")
+@click.option("--response-format", help="覆盖 IMAGE_RESPONSE_FORMAT，如 url 或 b64_json。")
+def image_cover(
+    prompt: str,
+    output_dir: Path | None,
+    filename: str,
+    model: str | None,
+    size: str | None,
+    response_format: str | None,
+) -> None:
+    print_json(
+        image_generation.generate_and_upload(
+            prompt=prompt,
+            output_dir=output_dir,
+            filename=filename,
+            model=model,
+            size=size,
+            n=1,
+            response_format=response_format,
+        )
+    )
+
+
+@image.command("illustrate")
+@click.option("--file", "file_", required=True, type=click.Path(exists=True, dir_okay=False, path_type=Path), help="需要插图的 Markdown 文章。")
+@click.option("--output", type=click.Path(dir_okay=False, path_type=Path), help="输出 Markdown 文件，默认 *_illustrated.md。")
+@click.option("--output-dir", type=click.Path(file_okay=False, path_type=Path), help="插图保存目录，默认 <文章名>_images。")
+@click.option("--max-images", default=3, show_default=True, type=int, help="最多生成几张正文插图。")
+@click.option("--style", default="现代科技感扁平插画，16:9，公众号正文配图", show_default=True, help="插图风格描述。")
+@click.option("--upload", is_flag=True, help="生成后上传到微信素材库，并在 Markdown 中插入微信图片 URL。")
+@click.option("--model", help="覆盖 IMAGE_MODEL。")
+@click.option("--size", help="覆盖 IMAGE_SIZE，如 1024x1024。")
+@click.option("--response-format", help="覆盖 IMAGE_RESPONSE_FORMAT，如 url 或 b64_json。")
+def image_illustrate(
+    file_: Path,
+    output: Path | None,
+    output_dir: Path | None,
+    max_images: int,
+    style: str,
+    upload: bool,
+    model: str | None,
+    size: str | None,
+    response_format: str | None,
+) -> None:
+    print_json(
+        image_generation.illustrate_article(
+            article_file=file_,
+            output_file=output,
+            output_dir=output_dir,
+            max_images=max_images,
+            style=style,
+            upload=upload,
+            model=model,
+            size=size,
+            response_format=response_format,
+        )
+    )
+
+
+@cli.group(name="draft")
+def draft_group() -> None:
+    """草稿与发布。"""
+
+
+@draft_group.command("create")
+@click.option("--title", required=True, help="文章标题。")
+@click.option("--content-file", type=click.Path(exists=True, dir_okay=False), help="Markdown 或 HTML 内容文件。")
+@click.option("--content", help="直接传入 HTML 内容。")
+@click.option("--cover-media-id", required=True, help="封面图片 media_id。")
+@click.option("--author", default="", help="作者。")
+@click.option("--digest", default="", help="摘要。")
+@click.option("--no-comment", is_flag=True, help="关闭评论。")
+@click.option("--open-comment", is_flag=True, help="开启评论功能。")
+def draft_create(
+    title: str,
+    content_file: str | None,
+    content: str | None,
+    cover_media_id: str,
+    author: str,
+    digest: str,
+    no_comment: bool,
+    open_comment: bool,
+) -> None:
+    print_json(
+        draft.create_draft(
+            title=title,
+            content_file=content_file,
+            content=content,
+            cover_media_id=cover_media_id,
+            author=author,
+            digest=digest,
+            allow_comment=not no_comment,
+            need_open_comment=open_comment,
+        )
+    )
+
+
+@draft_group.command("list")
+@click.option("--offset", default=0, show_default=True, type=int)
+@click.option("--count", default=20, show_default=True, type=int)
+@click.option("--with-content", is_flag=True, help="返回正文内容。")
+def draft_list(offset: int, count: int, with_content: bool) -> None:
+    print_json(draft.list_drafts(offset=offset, count=count, no_content=not with_content))
+
+
+@draft_group.command("delete")
+@click.argument("draft_media_id")
+def draft_delete(draft_media_id: str) -> None:
+    print_json(draft.delete_draft(draft_media_id))
+
+
+@draft_group.command("publish")
+@click.argument("draft_media_id")
+def draft_publish(draft_media_id: str) -> None:
+    print_json(draft.publish_draft(draft_media_id))
+
+
+@cli.group()
+def menu() -> None:
+    """自定义菜单。"""
+
+
+@menu.command("create")
+@click.option("--file", "file_", required=True, type=click.Path(exists=True, dir_okay=False, path_type=Path), help="菜单 JSON 文件。")
+def menu_create(file_: Path) -> None:
+    print_json(menus_users_stats.create_menu(json.loads(file_.read_text(encoding="utf-8"))))
+
+
+@menu.command("get")
+def menu_get() -> None:
+    print_json(menus_users_stats.get_menu())
+
+
+@menu.command("delete")
+def menu_delete() -> None:
+    print_json(menus_users_stats.delete_menu())
+
+
+@cli.group()
+def user() -> None:
+    """用户管理。"""
+
+
+@user.command("list")
+@click.option("--next-openid")
+def user_list(next_openid: str | None) -> None:
+    print_json(menus_users_stats.list_users(next_openid))
+
+
+@user.command("info")
+@click.argument("openid")
+def user_info(openid: str) -> None:
+    print_json(menus_users_stats.get_user_info(openid))
+
+
+@user.command("remark")
+@click.argument("openid")
+@click.option("--remark", required=True)
+def user_remark(openid: str, remark: str) -> None:
+    print_json(menus_users_stats.set_user_remark(openid, remark))
+
+
+@cli.group()
+def stats() -> None:
+    """数据统计。"""
+
+
+@stats.command("article")
+@click.option("--begin", required=True, help="开始日期，格式 YYYY-MM-DD。")
+@click.option("--end", required=True, help="结束日期，格式 YYYY-MM-DD。")
+def stats_article(begin: str, end: str) -> None:
+    print_json(menus_users_stats.get_article_stats(begin, end))
+
+
+if __name__ == "__main__":
+    cli()

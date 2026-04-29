@@ -1,0 +1,9 @@
+wechatpy==1.8.18
+python-dotenv==1.0.0
+PyYAML==6.0.2
+mistune==3.0.2
+beautifulsoup4==4.12.2
+html5lib==1.1
+loguru==0.7.0
+click==8.1.7
+requests==2.31.0

@@ -1,0 +1,102 @@
+assets:
+  - id: tech_icon
+    slot: icon
+    path: icons/tech_icon.png
+    tags: [技术分享, tech_article, developer_deep_dive, modern, tech]
+  - id: report_icon
+    slot: icon
+    path: icons/report_icon.png
+    tags: [汇报总结, weekly_report, minimal]
+  - id: product_icon
+    slot: icon
+    path: icons/product_icon.png
+    tags: [产品运营, product_launch, warm]
+  - id: trend_icon
+    slot: icon
+    path: icons/trend_icon.png
+    tags: [热点解读, industry_observation, neon]
+  - id: tutorial_icon
+    slot: icon
+    path: icons/tutorial_icon.png
+    tags: [教程指南, tutorial_guide, clean]
+  - id: default_icon
+    slot: icon
+    path: icons/default_icon.png
+    tags: [default]
+
+  - id: tech_cover
+    slot: cover
+    path: covers/tech_cover.png
+    tags: [技术分享, tech_article, developer_deep_dive, modern, tech]
+  - id: product_cover
+    slot: cover
+    path: covers/product_cover.png
+    tags: [产品运营, product_launch, warm]
+  - id: trend_cover
+    slot: cover
+    path: covers/trend_cover.png
+    tags: [热点解读, industry_observation, neon]
+  - id: tutorial_cover
+    slot: cover
+    path: covers/tutorial_cover.png
+    tags: [教程指南, tutorial_guide, clean]
+  - id: default_cover
+    slot: cover
+    path: covers/default_cover.png
+    tags: [default]
+
+  - id: tech_banner
+    slot: banner
+    path: banners/tech_banner.png
+    tags: [技术分享, tech_article, developer_deep_dive, modern, tech]
+  - id: product_banner
+    slot: banner
+    path: banners/product_banner.png
+    tags: [产品运营, product_launch, warm]
+  - id: default_banner
+    slot: banner
+    path: banners/default_banner.png
+    tags: [default]
+
+  - id: tech_hero
+    slot: hero
+    path: illustrations/tech_hero.png
+    tags: [技术分享, tech_article, developer_deep_dive, modern, tech]
+  - id: product_hero
+    slot: hero
+    path: illustrations/product_hero.png
+    tags: [产品运营, product_launch, warm]
+  - id: default_hero
+    slot: hero
+    path: illustrations/default_hero.png
+    tags: [default]
+
+  - id: default_divider
+    slot: divider
+    path: dividers/default_divider.png
+    tags: [default]
+  - id: neon_divider
+    slot: divider
+    path: dividers/neon_divider.png
+    tags: [neon, 热点解读]
+
+  - id: default_background
+    slot: background
+    path: backgrounds/default_background.png
+    tags: [default, 通用, modern]
+  - id: tech_background
+    slot: background
+    path: backgrounds/tech_background.png
+    tags: [技术分享, tech, 科技, developer]
+  - id: warm_background
+    slot: background
+    path: backgrounds/warm_background.png
+    tags: [温暖, warm, lifestyle, 情感, 产品运营]
+  - id: minimal_background
+    slot: background
+    path: backgrounds/minimal_background.png
+    tags: [极简, minimal, clean, 商务, professional]
+  - id: dark_background
+    slot: background
+    path: backgrounds/dark_background.png
+    tags: [深色, dark, 夜间模式, 神秘, elegant]

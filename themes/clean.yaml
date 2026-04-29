@@ -1,0 +1,27 @@
+name: 清爽教程风
+base:
+  font_family: "'PingFang SC', 'Microsoft YaHei', sans-serif"
+  font_size: "16px"
+  color: "#1f2937"
+  line_height: "1.85"
+h1:
+  font_size: "25px"
+  color: "#0f172a"
+  font_weight: "700"
+  margin: "24px 0 18px"
+h2:
+  font_size: "20px"
+  color: "#2563eb"
+  border_left: "4px solid #2563eb"
+  padding_left: "10px"
+p:
+  margin: "0 0 15px"
+blockquote:
+  border_left: "4px solid #93c5fd"
+  padding: "8px 12px"
+  color: "#475569"
+  background: "#eff6ff"
+img:
+  max_width: "100%"
+  margin: "16px 0"
+  border_radius: "8px"
