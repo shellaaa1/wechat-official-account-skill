@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="320" viewBox="0 0 800 320">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00f2fe;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="36" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b" font-family="system-ui, sans-serif">公众号内容生产全流程</text>
+
+  <!-- Step 1: 选择模板 -->
+  <rect x="20" y="70" width="120" height="60" rx="12" fill="url(#grad1)" filter="url(#shadow)"/>
+  <text x="80" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="white" font-family="system-ui, sans-serif">选择模板</text>
+  <text x="80" y="118" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)" font-family="system-ui, sans-serif">template render</text>
+
+  <!-- Arrow 1 -->
+  <line x1="140" y1="100" x2="175" y2="100" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 2: 写文章 -->
+  <rect x="175" y="70" width="120" height="60" rx="12" fill="url(#grad1)" filter="url(#shadow)"/>
+  <text x="235" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="white" font-family="system-ui, sans-serif">写文章</text>
+  <text x="235" y="118" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)" font-family="system-ui, sans-serif">Markdown 编辑</text>
+
+  <!-- Arrow 2 -->
+  <line x1="295" y1="100" x2="330" y2="100" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 3: AI 配图 -->
+  <rect x="330" y="70" width="130" height="60" rx="12" fill="url(#grad2)" filter="url(#shadow)"/>
+  <text x="395" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="white" font-family="system-ui, sans-serif">AI 配图</text>
+  <text x="395" y="118" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)" font-family="system-ui, sans-serif">封面 + 插图</text>
+
+  <!-- Arrow 3 -->
+  <line x1="460" y1="100" x2="495" y2="100" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 4: 排版 -->
+  <rect x="495" y="70" width="120" height="60" rx="12" fill="url(#grad3)" filter="url(#shadow)"/>
+  <text x="555" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="white" font-family="system-ui, sans-serif">HTML 排版</text>
+  <text x="555" y="118" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)" font-family="system-ui, sans-serif">convert --theme</text>
+
+  <!-- Arrow 4 -->
+  <line x1="615" y1="100" x2="650" y2="100" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 5: 上传素材 -->
+  <rect x="650" y="70" width="130" height="60" rx="12" fill="url(#grad3)" filter="url(#shadow)"/>
+  <text x="715" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="white" font-family="system-ui, sans-serif">上传素材</text>
+  <text x="715" y="118" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)" font-family="system-ui, sans-serif">upload image</text>
+
+  <!-- Down arrow -->
+  <line x1="715" y1="130" x2="715" y2="165" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 6: 创建草稿 -->
+  <rect x="650" y="170" width="130" height="60" rx="12" fill="#10b981" filter="url(#shadow)"/>
+  <text x="715" y="198" text-anchor="middle" font-size="13" font-weight="bold" fill="white" font-family="system-ui, sans-serif">创建草稿</text>
+  <text x="715" y="218" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)" font-family="system-ui, sans-serif">draft create</text>
+
+  <!-- Arrow to publish -->
+  <line x1="650" y1="200" x2="615" y2="200" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 7: 人工审核 -->
+  <rect x="495" y="170" width="120" height="60" rx="12" fill="#f59e0b" filter="url(#shadow)"/>
+  <text x="555" y="198" text-anchor="middle" font-size="13" font-weight="bold" fill="white" font-family="system-ui, sans-serif">人工审核</text>
+  <text x="555" y="218" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)" font-family="system-ui, sans-serif">✏️ 检查内容</text>
+
+  <!-- Arrow to publish -->
+  <line x1="495" y1="200" x2="460" y2="200" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+  <!-- Step 8: 发布 -->
+  <rect x="330" y="170" width="130" height="60" rx="12" fill="#ef4444" filter="url(#shadow)"/>
+  <text x="395" y="198" text-anchor="middle" font-size="13" font-weight="bold" fill="white" font-family="system-ui, sans-serif">发布文章</text>
+  <text x="395" y="218" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.85)" font-family="system-ui, sans-serif">draft publish</text>
+
+  <!-- Bottom description -->
+  <text x="400" y="280" text-anchor="middle" font-size="14" fill="#64748b" font-family="system-ui, sans-serif">一条命令搞定内容生产，AI 自动完成模板渲染 → 配图 → 排版 → 上传 → 草稿</text>
+
+  <!-- Feature badges -->
+  <rect x="100" y="300" width="90" height="28" rx="14" fill="#ede9fe"/>
+  <text x="145" y="319" text-anchor="middle" font-size="12" fill="#7c3aed" font-family="system-ui, sans-serif">📝 8 套模板</text>
+
+  <rect x="210" y="300" width="110" height="28" rx="14" fill="#fce7f3"/>
+  <text x="265" y="319" text-anchor="middle" font-size="12" fill="#db2777" font-family="system-ui, sans-serif">🎨 AI 配图</text>
+
+  <rect x="340" y="300" width="100" height="28" rx="14" fill="#dbeafe"/>
+  <text x="390" y="319" text-anchor="middle" font-size="12" fill="#2563eb" font-family="system-ui, sans-serif">📋 草稿管理</text>
+
+  <rect x="460" y="300" width="100" height="28" rx="14" fill="#d1fae5"/>
+  <text x="510" y="319" text-anchor="middle" font-size="12" fill="#059669" font-family="system-ui, sans-serif">📊 数据统计</text>
+
+  <rect x="580" y="300" width="120" height="28" rx="14" fill="#fef3c7"/>
+  <text x="640" y="319" text-anchor="middle" font-size="12" fill="#d97706" font-family="system-ui, sans-serif">🎯 菜单/用户管理</text>
+</svg>
